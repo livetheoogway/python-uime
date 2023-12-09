@@ -12,23 +12,20 @@
 
 
 ## UI-Me
-
-Release details can be found at [PyPi](https://pypi.org/project/python-uime/)
-
-Python-UIME (User Interface for Python Methods) is a Python package that enables developers to easily create web-based user interfaces for Python functions. It uses decorators to mark functions for UI exposure and a built-in Flask server to render the UI. This package is ideal for quickly setting up simple UIs for Python scripts, making it easier to interact with them through a web browser.
+Python UI-Me (as in: Python methods saying "make elegant UI forms out of me") is a Python package that enables developers to quickly create web-based user interfaces for Python functions. It uses decorators to mark functions for UI exposure and a built-in Flask server to render the UI. 
 
 ## TL;DR
-The promise: With-in 3 lines of code, you will be able to get a working UI form out of your python functions<br>
-Another promise: You won't regret the time spent in reading the [Motivation](#Motivation) section, it is not too long<br>
-But for the GenZ instant gratification folks: watch this gif (which I totally struggled to create):
-
+**The promise:** With-in 3 lines of code, you will be able to get a working UI form out of your python functions<br>
+**Another promise:** You won't regret the time spent in reading the [Motivation](#Motivation) section, it is not too long<br>
+But for the GenZ instant gratification folks: watch this gif (which I struggled to create):<br>
+![img.png](resources/demo.gif)
 
 ## Motivation
 I'm pretty sure I'm not the only lazy developer that over-engineers every small daily task as scripts. <br> 
 Honestly, this is yet another attempt of the aforementioned over-engineering, towards making it as easy as possible to whip up a quick UI to run those scripts.<br>
 Yes, there are good alternatives, `argparse` being a popular one for running your scripts through cli. But I've always struggled with it the moment the script has multiple functionalities or modules. 
 The day you start forgetting your engineering principles and start overloading your one script to do many things (because duh! that was the whole point of writing it as a script), these cli tools start to fall apart.  
-Not the mention the amount of code you'd have to write, stitching parsers and subparsers. <br>
+Not the mention the amount of code you'd have to write, like stitching parsers and subparsers and subsubparsers and.. <br>
 
 This goes without saying, for proper production scripts, UI-me is not the way to go. But for those quick and dirty daily / personal scripts, you should find this useful <br>
 
@@ -73,15 +70,22 @@ def difference_math_function(a, b):
     return a - b
 
 if __name__ == '__main__':
-    start_server()  ## <--- This is line 3
+    start_server()  ## <--- This is line 3 (As promised, within 3 lines of code)
 ```
 ![img.png](resources/ui-example.png)
 
-## Fixes Pending
 
+## Dependencies
+The following is not the exhaustive list of dependencies, but UI-me was made possible because of these:
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/): quickest way to spin up a web server
+- [Tailwind CSS](https://tailwindcss.com/): it is pretty neat
+
+## Features Pending
+- [ ] Handle overloading of functions (identify functions with ids rather than names)
+- [ ] Add support for setting `global` variables in the UI 
+- [ ] Make default values for parameters as non-mandatory in the form
+- [ ] Capture parameter data types and change the form field type accordingly
 
 ## Contributions
-
-Please raise Issues, Bugs or any feature requests at [Github Issues](https://github.com/livetheoogway/python-uime/issues)
-. <br>
+Please raise Issues, Bugs or any feature requests at [Github Issues](https://github.com/livetheoogway/python-uime/issues). <br>
 If you plan on contributing to the code, fork the repository and raise a Pull Request back here.
