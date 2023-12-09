@@ -21,7 +21,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='python-uime',
-    version='1.0.0',
+    version='1.0.2',
     packages=find_packages(),
     license=' License 2.0',
     description='A python library to help you build simple UI forms for your python functions',
