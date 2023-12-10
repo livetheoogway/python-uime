@@ -28,22 +28,33 @@ The day you start forgetting your engineering principles and start overloading y
 Not the mention the amount of code you'd have to write, like stitching parsers and subparsers and subsubparsers and.. <br>
 
 Having said that, for proper production scripts, UI-me is not the way to go. But for those quick and dirty daily / personal scripts, you would find UI-me useful <br>
+Think of this like [Swagger UI](https://swagger.io/tools/swagger-ui/), but for python functions. <br>
 
 
 ## Features
-- **Easy Function Exposure:** Decorate Python functions with `@ui_enabled` to expose them as web forms.
-- **Automatic UI Generation:** Generates web UIs for decorated functions, with form fields corresponding to function parameters.
-- **Grouping of Functions:** Organize functions into groups (nav-tabs) in the UI for better organization.
-- **Customizable Function Metadata:** Specify titles, descriptions, and other metadata for functions.
-- **Built-in Web Server:** Comes with an integrated Flask web server to host the UI.
-- **Clipboard Support:** Easy copy-to-clipboard feature for function outputs.
-- **Global Variables:** Set global variables for your script, from within the UI.
+1. **Easy Function Exposure** <br>
+   Decorate Python functions with `@ui_enabled` to expose them as web forms.
+2. **Automatic UI Generation** <br>
+   Generates web UIs for decorated functions, with form fields corresponding to function parameters.
+3. **Grouping of Functions** <br>
+   Organize functions into <br>
+   groups (nav-tabs) in the UI for better organization.
+4. **Customizable Function Metadata** <br>
+   Specify titles, descriptions, and other metadata for functions.
+5. **Built-in Web Server** <br>
+   Comes with an integrated Flask web server to host the UI.
+6. **Clipboard Support** <br>
+   Easy copy-to-clipboard feature for function outputs.
+7. **Global Variables** <br>
+   Set global variables for your script, from within the UI.
+
 
 ## Installation
 Install Python UI-me using pip:
 ```bash
 python3 -m pip install python-uime
 ```
+
 
 ## Usage
 
