@@ -1,0 +1,17 @@
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+#globalVarSlideOver {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    max-width: 600px; /* Adjust as needed */
+    z-index: 50; /* Ensure it's above other content */
+    transition: right 0.3s ease-in-out; /* Smooth slide-in transition */
+}
+
+#globalVarSlideOver.open {
+    right: 0; /* Slide in */
+}

@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .decorator import ui_enabled
+from .decorator import ui_enabled, ui_global
 from .server import start_server

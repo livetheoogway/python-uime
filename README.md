@@ -17,8 +17,8 @@ Python UI-Me (as in: Python methods saying "make elegant UI forms out of me") is
 ## TL;DR
 **The promise:** With-in 3 lines of code, you will be able to get a working UI form out of your python functions<br>
 **Another promise:** You won't regret the time spent in reading the [Motivation](#Motivation) section, it is not too long<br>
-But for the GenZ instant gratification folks: watch this gif (which I struggled to create):<br>
-![img.png](resources/demo.gif)
+But for the ones seeking instant gratification: watch this fancy gif (which I totally struggled to create):<br>
+![demo.gif](resources/demo.gif)
 
 ## Motivation
 I'm pretty sure I'm not the only lazy developer that over-engineers every small daily task as scripts. <br> 
@@ -27,7 +27,7 @@ Yes, there are good alternatives, `argparse` being a popular one for running you
 The day you start forgetting your engineering principles and start overloading your one script to do many things (because duh! that was the whole point of writing it as a script), these cli tools start to fall apart.  
 Not the mention the amount of code you'd have to write, like stitching parsers and subparsers and subsubparsers and.. <br>
 
-This goes without saying, for proper production scripts, UI-me is not the way to go. But for those quick and dirty daily / personal scripts, you should find this useful <br>
+Having said that, for proper production scripts, UI-me is not the way to go. But for those quick and dirty daily / personal scripts, you would find UI-me useful <br>
 
 
 ## Features
@@ -37,6 +37,7 @@ This goes without saying, for proper production scripts, UI-me is not the way to
 - Customizable Function Metadata: Specify titles, descriptions, and other metadata for functions.
 - Built-in Web Server: Comes with an integrated Flask web server to host the UI.
 - Clipboard Support: Easy copy-to-clipboard feature for function outputs.
+- Global Variables: Set global variables for your script, from within the UI.
 
 ## Installation
 Install Python UI-me using pip:
@@ -74,15 +75,45 @@ if __name__ == '__main__':
 ```
 ![img.png](resources/ui-example.png)
 
+## Advanced Usage
+### 1. Setting Global Variables
+You might run into situations where you want to set global variables of your script. <br>
+This is going to be a little more involved - you need to expose a setter to the global variable, while using a new decorator `@ui_global` <br>
+Here is an example:
+```python
+from uime import start_server, ui_enabled, ui_global  ## <--- ui_global is the new import
+
+DEFAULT = "There are no accidents."
+DEFAULT_2 = "Only coincidences."
+
+@ui_global(name="DEFAULT", description="Global DEFAULT value", default_value=DEFAULT)
+def set_default(value):
+    global DEFAULT
+    DEFAULT = value
+
+@ui_global(name="DEFAULT_2", description="Global DEFAULT_2 value", default_value=DEFAULT_2)
+def set_default2(value):
+    global DEFAULT_2
+    DEFAULT_2 = value
+
+
+@ui_enabled(group="group1")
+def hello_world(name):
+    return f"Hello {name}. {DEFAULT} {DEFAULT_2}" # <-- using the global variables
+```
+Use should see a button on the top right corner of the UI, which will allow you to set the global variables. <br>
+![global.png](globalvar-example.png)
 
 ## Dependencies
 The following is not the exhaustive list of dependencies, but UI-me was made possible because of these:
 - [Flask](https://flask.palletsprojects.com/en/3.0.x/): quickest way to spin up a web server
-- [Tailwind CSS](https://tailwindcss.com/): it is pretty neat
+- [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/templates/): for templating
+- [Tailwind CSS](https://tailwindcss.com/): it is a pretty neat, utility-first CSS framework for rapid UI development
 
 ## Features Pending
 - [ ] Handle overloading of functions (identify functions with ids rather than names)
-- [ ] Add support for setting `global` variables in the UI 
+- [x] Add support for setting `global` variables in the UI ([Setting Global Variables](#1setting-global-variables)) 
+- [ ] Add support for complex data-structures as inputs (like list of strings, or json strings)
 - [ ] Make default values for parameters as non-mandatory in the form
 - [ ] Capture parameter data types and change the form field type accordingly
 

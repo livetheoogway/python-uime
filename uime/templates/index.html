@@ -7,15 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            {#font-family: 'Open Sans', sans-serif;#}
-        }
-    </style>
+    <link href="/static/css/uime.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
 
@@ -27,196 +22,119 @@
             <div class="hidden sm:block sm:ml-6">
                 <div class="flex space-x-4">
                     {% for group in groups.keys() %}
-                    <a href="#{{ group }}"
-                       class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                        {{ group }}
-                    </a>
+                        <a href="#{{ group }}"
+                           class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                            {{ group }}
+                        </a>
                     {% endfor %}
                 </div>
             </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button onclick="openGlobalsSlideOver(event)"
+                        class="{% if global_vars|length == 0 %}hidden{% endif %} flex justify-center rounded-md bg-indigo-800 px-3 py-1 text-sm shadow-indigo-500/50 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        data-ripple-light="true">
+                    Edit Global Variables
+                </button>
+            </div>
         </div>
     </div>
+
 </nav>
 
 <div class="container mx-auto p-4">
     <!-- Tab Contents -->
     {% for group, funcs in groups.items() %}
-    <div id="{{ group }}" class="tab-content hidden pt-4 mb-8">
-        {% for func in funcs %}
-        <div class="p-4 bg-white rounded shadow-inner hover:shadow-md mb-6">
-            <div class="flex items-center">
-                <h3 class="text-xl">
-                <span class="bg-indigo-100/80 text-indigo-800 text-lg font-normal hover:font-bold mr-2 px-3 py-2 rounded">
-                    {{ func.title }}
-                </span>
-                </h3>
-                {% if func.description %}
-                <p class="font-light text-xs text-gray-400 mt-1">{{ func.description }}</p>
-                {% endif %}
-            </div>
+        <div id="{{ group }}" class="tab-content hidden pt-4 mb-8">
+            {% for func in funcs %}
+                <div class="p-4 bg-white rounded shadow-inner hover:shadow-md mb-6">
+                    <div class="flex items-center">
+                        <h3 class="text-xl">
+                            <span class="bg-indigo-100/80 text-indigo-800 text-lg font-normal hover:font-bold mr-2 px-3 py-2 rounded">
+                                {{ func.title }}
+                            </span>
+                        </h3>
+                        {% if func.description %}
+                            <p class="font-light text-xs text-gray-400 mt-1">{{ func.description }}</p>
+                        {% endif %}
+                    </div>
 
-
-            <form id="{{ func.name }}" class="mt-4">
-                {% for param in func.parameters %}
-                <div class="flex flex-col items-end gap-6">
-                    <div class="relative w-full min-w-[200px] h-10 mb-2">
-                        <input
-                                id="{{ param }}" name="{{ param }}" required
-                                class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                placeholder=" "/><label
-                            class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">
-                        {{ param }}
-                    </label>
+                    <form id="{{ func.name }}" class="mt-4">
+                        {% for param in func.parameters %}
+                            <div class="flex flex-col items-end gap-6">
+                                <div class="relative w-full min-w-[200px] h-10 mb-2">
+                                    <input id="{{ param }}" name="{{ param }}" required
+                                           class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                           placeholder=" "/><label
+                                        class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">
+                                    {{ param }}
+                                </label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <button type="submit"
+                                class="flex justify-center rounded-md bg-indigo-800 px-3 py-1 text-sm shadow-indigo-500/50 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                data-ripple-light="true">
+                            Execute
+                        </button>
+                    </form>
+                    <div id="{{ func.name }}_section" class="relative mt-4 hidden">
+                        <pre id="{{ func.name }}_result" class="mt-4 p-3 bg-gray-100 rounded"></pre>
+                        <button id="{{ func.name }}_copy" onclick="copyToClipboard('{{ func.name }}_result')"
+                                class="hidden absolute top-2 right-2 p-2 inline-flex items-center text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+                                <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-                {% endfor %}
-                <button type="submit"
-                        class="flex justify-center rounded-md bg-indigo-800 px-3 py-1 text-sm shadow-indigo-500/50 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        data-ripple-light="true">
-                    Execute
-                </button>
-            </form>
-            <div id="{{ func.name }}_section" class="relative mt-4 hidden">
-                <pre id="{{ func.name }}_result" class="mt-4 p-3 bg-gray-100 rounded"></pre>
-                <button id="{{ func.name }}_copy" onclick="copyToClipboard('{{ func.name }}_result')"
-                        class="hidden absolute top-2 right-2 p-2 inline-flex items-center text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-                        <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"></path>
-                    </svg>
-                </button>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     {% endfor %}
 
 </div>
 
+<!-- Global Variables SlideOver -->
+<div id="globalVarSlideOver" class="bg-white h-full w-full fixed top-0 right-0 z-50 overflow-y-auto rounded-l-lg ">
+    <div class="flex justify-between items-center px-4 py-6">
+        <h2 class="text-xl font-semibold text-indigo-800">Global Variables</h2>
+        <button onclick="closeGlobalsSlideOver()"
+                class="text-gray-600 focus:outline-none focus:text-gray-800 hover:text-gray-800">
+            <svg class="h-6 w-6" x-description="Heroicon name: outline/x" xmlns="http://www.w3.org/2000/svg"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="px-4 pb-4">
+        <form id="global-vars-form" class="mt-4">
+            {% for var in global_vars %}
+                <div class="flex flex-col items-end gap-10 mt-4">
+                    <div class="relative w-full min-w-[200px] h-10 mb-2">
+                        <input
+                                id="{{ var }}" name="{{ var }}" required value="{{ global_vars[var]['value'] }}"
+                                class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                placeholder=" "/>
+                        <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">
+                            {{ var }}
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit"
+                    class="flex justify-center rounded-md bg-indigo-800 px-3 py-1 mt-4 text-sm shadow-indigo-500/50 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    data-ripple-light="true">
+                Save
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript -->
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    clifford: '#da373d',
-                }
-            }
-        }
-    }
-</script>
-<script>
+<script src="/static/js/uime.js"></script>
 
-    function isJson(str) {
-        try {
-            JSON.parse(str);
-        } catch (e) {
-            return false;
-        }
-        return true;
-    }
-
-    function copyToClipboard(elementId) {
-        var text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text).then(function () {
-            console.log('Copying to clipboard was successful!');
-            // Optional: Change the icon to indicate success
-        }, function (err) {
-            console.error('Could not copy text: ', err);
-        });
-    }
-
-    function formatOutput(resultElement, data) {
-        if (typeof data === 'object') {
-            // If the response is an object (including arrays), format it as JSON
-            resultElement.textContent = JSON.stringify(data, null, 2);
-        } else if (typeof data === 'string') {
-            try {
-                // If the response is a string, try to parse it as JSON
-                const jsonData = JSON.parse(data);
-                resultElement.textContent = JSON.stringify(jsonData, null, 2);
-            } catch (e) {
-                // If it's not JSON, just display the raw string
-                resultElement.textContent = data;
-            }
-        } else {
-            // For other data types (number, boolean), convert to string
-            resultElement.textContent = String(data);
-        }
-    }
-
-
-    // JavaScript for handling form submissions
-    document.addEventListener("DOMContentLoaded", function () {
-        const tabs = document.querySelectorAll('.tab-content');
-        const navLinks = document.querySelectorAll('nav a');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1); // Remove '#' from href
-                const target = document.getElementById(targetId);
-
-                tabs.forEach(tab => tab.classList.add('hidden'));
-                navLinks.forEach(link => link.classList.remove('bg-gray-700', 'text-white')); // Remove active styles
-
-                if (target) {
-                    target.classList.remove('hidden');
-                    this.classList.add('bg-gray-700', 'text-white'); // Add active styles
-                }
-            });
-        });
-
-        // Show the first tab by default
-        if (tabs.length > 0) {
-            tabs[0].classList.remove('hidden');
-            navLinks[0].classList.add('bg-gray-700', 'text-white'); // Add active styles
-        }
-
-        document.querySelectorAll('form').forEach(function (form) {
-            form.onsubmit = function (event) {
-                event.preventDefault();
-                executeFunction(form, this.closest('.tab-content').id);
-            };
-        });
-    });
-
-    function executeFunction(form, group) {
-        const funcName = form.id;
-        const resultElement = document.getElementById(`${funcName}_result`);
-        const resultSection = document.getElementById(`${funcName}_section`);
-        const copyButton = document.getElementById(`${funcName}_copy`);
-        const formData = new FormData(form);
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
-
-        fetch(`/function/${group}/${funcName}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => {
-                resultSection.classList.remove('hidden');
-                formatOutput(resultElement, data);
-                if (copyButton) {  // Check if the element exists
-                    copyButton.classList.remove('hidden'); // Show the copy button
-                }
-                // resultElement.textContent = JSON.stringify(data, null, 2);
-            })
-            .catch(error => {
-                console.error("We got an error:" + error)
-                resultElement.textContent = 'Error: ' + error;
-                if (copyButton) {  // Check if the element exists
-                    copyButton.classList.add('hidden'); // Hide the copy button in case of error
-                }
-            });
-    }
-</script>
 </body>
 </html>

@@ -11,14 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
+import json
 import logging
 import sys
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 
-from .decorator import ui_enabled_functions
+from .decorator import ui_enabled_functions, global_variables
 
 app = Flask(__name__)
 
@@ -35,6 +34,20 @@ def get_default_logger():
 
 
 logger = get_default_logger()
+
+
+@app.route('/globals', methods=['GET', 'POST'])
+def handle_globals():
+    if request.method == 'POST':
+        print(request.json)
+        for var_name, var_info in global_variables.items():
+            if var_name in request.json:
+                global_variables[var_name]['func'](request.json[var_name])
+                global_variables[var_name]['value'] = request.json[var_name]
+        return redirect('/')
+    else:
+        # Render a form to edit global variables
+        return render_template(globals=global_variables)
 
 
 @app.route('/function/<group>/<func_name>', methods=['POST'])
@@ -57,7 +70,7 @@ def run_function(group, func_name):
 
 @app.route('/')
 def index():
-    return render_template('index.html', groups=ui_enabled_functions)
+    return render_template('index.html', groups=ui_enabled_functions, global_vars=global_variables)
 
 
 def start_server(host: str | None = None,

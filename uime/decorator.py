@@ -34,3 +34,21 @@ def ui_enabled(group="home", title="", description="", **kwargs):
         return func
 
     return decorator
+
+
+global_variables = {}
+
+
+def ui_global(name, default_value, description=""):
+    def decorator(func):
+        if name in global_variables:
+            raise Exception(f"Global variable {name} already exists")
+
+        global_variables[name] = {
+            "func": func,  # Function to set the default value
+            "description": description,
+            "value": default_value
+        }
+        return func
+
+    return decorator
