@@ -31,13 +31,13 @@ Having said that, for proper production scripts, UI-me is not the way to go. But
 
 
 ## Features
-- Easy Function Exposure: Decorate Python functions with `@ui_enabled` to expose them as web forms.
-- Automatic UI Generation: Generates web UIs for decorated functions, with form fields corresponding to function parameters.
-- Grouping of Functions: Organize functions into groups (nav-tabs) in the UI for better organization.
-- Customizable Function Metadata: Specify titles, descriptions, and other metadata for functions.
-- Built-in Web Server: Comes with an integrated Flask web server to host the UI.
-- Clipboard Support: Easy copy-to-clipboard feature for function outputs.
-- Global Variables: Set global variables for your script, from within the UI.
+- **Easy Function Exposure:** Decorate Python functions with `@ui_enabled` to expose them as web forms.
+- **Automatic UI Generation:** Generates web UIs for decorated functions, with form fields corresponding to function parameters.
+- **Grouping of Functions:** Organize functions into groups (nav-tabs) in the UI for better organization.
+- **Customizable Function Metadata:** Specify titles, descriptions, and other metadata for functions.
+- **Built-in Web Server:** Comes with an integrated Flask web server to host the UI.
+- **Clipboard Support:** Easy copy-to-clipboard feature for function outputs.
+- **Global Variables:** Set global variables for your script, from within the UI.
 
 ## Installation
 Install Python UI-me using pip:
@@ -112,7 +112,7 @@ The following is not the exhaustive list of dependencies, but UI-me was made pos
 
 ## Features Pending
 - [ ] Handle overloading of functions (identify functions with ids rather than names)
-- [x] Add support for setting `global` variables in the UI ([Setting Global Variables](#1setting-global-variables)) 
+- [x] Add support for setting `global` variables in the UI ([Setting Global Variables](#1-setting-global-variables)) 
 - [ ] Add support for complex data-structures as inputs (like list of strings, or json strings)
 - [ ] Make default values for parameters as non-mandatory in the form
 - [ ] Capture parameter data types and change the form field type accordingly
