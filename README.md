@@ -189,8 +189,8 @@ The UI would look something like this
 > When inferring a list of anything from the text-area - extraction of the list from the large string, is done by using
 > delimiters.
 > By default, the priority of delimiters are NEWLINE, COMMA, SPACE
-> ie: NEWLINE is checked first, if available, the string will be split by comma and returned as a list. Then there is a
-> check for COMMA, if available, the string will be split by newline and returned as a list. Finally SPACE.
+> ie: NEWLINE is checked first, if available, the string will be split by newline and returned as a list. Then there is a
+> check for COMMA, if available, the string will be split by comma and returned as a list. Finally SPACE.
 > In case of <list of list>, it is always a check on NEWLINE for the outer list, and COMMA/SPACE for the inner lists
 
 ## Dependencies

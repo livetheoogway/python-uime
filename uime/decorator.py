@@ -42,8 +42,8 @@ def handle_list_of_string(value, default):
     2. Comma
     3. Space
 
-    Priority: newline is checked first, if available, the string will be split by comma and returned as a list.
-    Then there is a check for comma, if available, the string will be split by newline and returned as a list.
+    Priority: newline is checked first, if available, the string will be split by newline and returned as a list.
+    Then there is a check for comma, if available, the string will be split by comma and returned as a list.
     Finally space.
     """
     if value is None:
@@ -141,7 +141,7 @@ type_handler_registry = {
     'List[str]': handle_list_of_string,
     'List[int]': handle_list_of_int,
     'List[float]': handle_list_of_float,
-    'List[complex]': handle_list_of_complex(),
+    'List[complex]': handle_list_of_complex,
     'List[list]': handle_list_of_list,
     'dict': handle_dict,
     'bool': handle_bool
