@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from uime import ui_enabled, start_server, ui_global
 
@@ -19,8 +20,8 @@ def set_default2(value):
 
 
 @ui_enabled(group="group1")
-def hello_world(name):
-    return f"Hello {name}. {DEFAULT} {DEFAULT_2}"
+def hello_world(name, value: bool = True):
+    return f"Hello {name}. {DEFAULT} {DEFAULT_2} | {value}"
 
 
 @ui_enabled(group="group1", title="My API", description="This will return a json")
@@ -29,13 +30,24 @@ def make_api_call(url, data):
 
 
 @ui_enabled(group="group2")
-def sum_math_function(a, b):
+def sum_math_function(a: int, b: int):
     return a + b
 
 
 @ui_enabled(group="group2")
-def difference_math_function(a, b):
+def difference_math_function(a: int, b: int):
     return a - b
+
+
+@ui_enabled(group="group1")
+def test_list_string(regular_list: list, strings: List[str], ints: List[int], dicts: dict, list_of_list: List[list]):
+    return f"""
+    list = {regular_list}
+    strings= {strings}
+    ints= {ints}
+    dicts: {json.dumps(dicts)}
+    list_of_list: {list_of_list}
+    """
 
 
 if __name__ == '__main__':
