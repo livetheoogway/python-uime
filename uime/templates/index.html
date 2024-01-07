@@ -116,7 +116,7 @@
                         </button>
                     </form>
                     <div id="{{ func.name }}_section" class="relative mt-4 hidden">
-                        <pre id="{{ func.name }}_result" class="mt-4 p-3 bg-gray-100 rounded"></pre>
+                        <pre id="{{ func.name }}_result" class="mt-4 p-3 bg-gray-100 rounded overflow-auto whitespace-pre-wrap max-h-96"></pre>
                         <button id="{{ func.name }}_copy" onclick="copyToClipboard('{{ func.name }}_result')"
                                 class="hidden absolute top-2 right-2 p-2 inline-flex items-center text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
