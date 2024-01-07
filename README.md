@@ -206,7 +206,7 @@ The following is not the exhaustive list of dependencies, but UI-me was made pos
 - [ ] Handle overloading of functions (identify functions with ids rather than names)
 - [x] Add support for setting `global` variables in the UI ([Setting Global Variables](#1-setting-global-variables))
 - [x] Add support for complex data-structures as inputs (like list of strings, or json strings)
-- [ ] Make default values for parameters as non-mandatory in the form
+- [x] Make default values for parameters as non-mandatory in the form
 - [x] Capture parameter data types and change the form field type accordingly
 
 ## Contributions

@@ -181,7 +181,8 @@ def ui_enabled(group="home", title="", description="", **kwargs):
         params = inspect.signature(func).parameters
         param_info = []
         for name, param in params.items():
-            type_ = str(param).split(":")[1].strip() if param.annotation != param.empty else 'str'
+            type_ = str(param).split(":")[1].split("=")[0].strip() if param.annotation != param.empty else 'str'
+            print(f"BROO: NAME({name}) PARAM({param}) TYPE({type} ANN({param.annotation})")
             param_info.append(ParameterInfo(
                 name,
                 type_,

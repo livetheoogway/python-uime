@@ -25,7 +25,7 @@ def hello_world(name, value: bool = True):
 
 
 @ui_enabled(group="group1", title="My API", description="This will return a json")
-def make_api_call(url, data):
+def make_api_call(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
 
@@ -35,18 +35,24 @@ def sum_math_function(a: int, b: int):
 
 
 @ui_enabled(group="group2")
-def difference_math_function(a: int, b: int):
+def difference_math_function(a: int, b: int = 22):
+    print(type(b))
     return a - b
 
 
 @ui_enabled(group="group1")
-def test_list_string(regular_list: list, strings: List[str], ints: List[int], dicts: dict, list_of_list: List[list]):
+def test_list_string(regular_list: list,
+                     bool_data: bool,
+                     strings: List[str], ints: List[int], dicts: dict, list_of_list: List[list],
+                     list_with_default:list = "more,default"):
     return f"""
-    list = {regular_list}
+    list = {regular_list},
+    bool_data: {bool_data}
     strings= {strings}
     ints= {ints}
     dicts: {json.dumps(dicts)}
-    list_of_list: {list_of_list}
+    list_of_list: {list_of_list},
+    list_with_default: {list_with_default}
     """
 
 
