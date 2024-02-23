@@ -59,6 +59,7 @@ function formatOutput(resultElement, data) {
 // JavaScript for handling form submissions
 document.addEventListener("DOMContentLoaded", function () {
     const tabs = document.querySelectorAll('.tab-content');
+    const sidebars = document.querySelectorAll('.sidebar');
     const navLinks = document.querySelectorAll('nav a');
 
     navLinks.forEach(link => {
@@ -66,12 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1); // Remove '#' from href
             const target = document.getElementById(targetId);
+            const targetSidebar = document.getElementById(targetId+"-sidebar");
 
             tabs.forEach(tab => tab.classList.add('hidden'));
+            sidebars.forEach(tab => tab.classList.add('hidden'));
             navLinks.forEach(link => link.classList.remove('bg-gray-700', 'text-white')); // Remove active styles
 
             if (target) {
                 target.classList.remove('hidden');
+                targetSidebar.classList.remove('hidden');
                 this.classList.add('bg-gray-700', 'text-white'); // Add active styles
             }
         });
@@ -80,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Show the first tab by default
     if (tabs.length > 0) {
         tabs[0].classList.remove('hidden');
+        sidebars[0].classList.remove('hidden');
         navLinks[0].classList.add('bg-gray-700', 'text-white'); // Add active styles
     }
 

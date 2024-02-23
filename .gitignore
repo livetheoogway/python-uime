@@ -16,3 +16,5 @@ dist
 include
 
 build
+
+node_modules/

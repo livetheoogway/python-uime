@@ -1,6 +1,17 @@
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
+    /*font-family: 'Inter', sans-serif;*/
+    /*font-family: "Work Sans", sans-serif;*/
+    /*font-family: "Open Sans", sans-serif;*/
+    font-family: "Roboto Thin", sans-serif;
+    /*font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 
 #globalVarSlideOver {
