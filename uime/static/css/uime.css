@@ -6,23 +6,15 @@ html {
 body {
     /*font-family: 'Inter', sans-serif;*/
     /*font-family: "Work Sans", sans-serif;*/
-    /*font-family: "Open Sans", sans-serif;*/
-    font-family: "Roboto Thin", sans-serif;
+    font-family: "Open Sans", sans-serif;
+    /*font-family: "Roboto Thin", sans-serif;*/
     /*font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
+    /*font-optical-sizing: auto;*/
+    /*font-weight: 500;*/
+    /*font-style: normal;*/
 }
 
-#globalVarSlideOver {
-    position: fixed;
-    top: 0;
-    right: -100%; /* Start off-screen */
-    max-width: 600px; /* Adjust as needed */
-    z-index: 50; /* Ensure it's above other content */
-    transition: right 0.3s ease-in-out; /* Smooth slide-in transition */
-}
-
-#globalVarSlideOver.open {
-    right: 0; /* Slide in */
+#logo {
+    font-family: "Dancing Script", cursive;
+    font-size: large;
 }

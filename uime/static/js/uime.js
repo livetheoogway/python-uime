@@ -8,24 +8,6 @@ tailwind.config = {
     }
 }
 
-function openGlobalsSlideOver(event) {
-    event.stopPropagation(); // Prevent the click from propagating up to the document
-    document.getElementById('globalVarSlideOver').classList.add('open');
-}
-
-function closeGlobalsSlideOver() {
-    document.getElementById('globalVarSlideOver').classList.remove('open');
-}
-
-function isJson(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
-}
-
 function copyToClipboard(elementId) {
     var text = document.getElementById(elementId).innerText;
     navigator.clipboard.writeText(text).then(function () {
@@ -58,6 +40,38 @@ function formatOutput(resultElement, data) {
 
 // JavaScript for handling form submissions
 document.addEventListener("DOMContentLoaded", function () {
+    updateActiveLink();
+
+    // Listen for hash changes to update the active link
+    window.addEventListener('hashchange', updateActiveLink);
+
+    function updateActiveLink() {
+        // Remove the shadow from all results
+        document.querySelectorAll('.func').forEach(function (result) {
+            result.classList.remove('shadow-xl');
+        });
+
+        // Remove the active class from all links
+        document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+            link.classList.remove('border-slate-400');
+            link.classList.remove('text-slate-900');
+        });
+
+        // Add the active class to the link that matches the current hash
+        var activeLink = document.querySelector('a[href="' + window.location.hash + '"]');
+        if (activeLink) {
+            activeLink.classList.add('border-slate-400');
+            activeLink.classList.add('text-slate-900');
+        }
+        let func = window.location.hash.substring(1);
+        console.log("func:" + func);
+        // shadow on the function result
+        var activeFunction = document.getElementById(func);
+        if (activeFunction) {
+            activeFunction.classList.add('shadow-xl');
+        }
+    }
+
     const tabs = document.querySelectorAll('.tab-content');
     const sidebars = document.querySelectorAll('.sidebar');
     const navLinks = document.querySelectorAll('nav a');
@@ -65,31 +79,54 @@ document.addEventListener("DOMContentLoaded", function () {
     navLinks.forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
+            // add group=group_id to the url
+            const urlParams = new URLSearchParams(window.location.search);
+            group=this.getAttribute('href').substring(1)
+            urlParams.set('group', group);
+            window.history.pushState(
+                {},
+                '',
+                window.location.pathname + '?' + urlParams.toString()
+            );
+
             const targetId = this.getAttribute('href').substring(1); // Remove '#' from href
             const target = document.getElementById(targetId);
-            const targetSidebar = document.getElementById(targetId+"-sidebar");
+            const targetSidebar = document.getElementById(targetId + "-sidebar");
 
             tabs.forEach(tab => tab.classList.add('hidden'));
             sidebars.forEach(tab => tab.classList.add('hidden'));
-            navLinks.forEach(link => link.classList.remove('bg-gray-700', 'text-white')); // Remove active styles
+            navLinks.forEach(link => link.classList.remove('bg-gray-100', 'text-indigo-950', 'font-semibold', 'hover:bg-gray-300')); // Remove active styles
 
             if (target) {
                 target.classList.remove('hidden');
                 targetSidebar.classList.remove('hidden');
-                this.classList.add('bg-gray-700', 'text-white'); // Add active styles
+                this.classList.add('bg-gray-100', 'text-indigo-950', 'font-semibold', 'hover:bg-gray-300'); // Add active styles
             }
+
+            var form = document.getElementById('global-vars-form-'+group);
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+                saveGlobalVars(form);
+            });
         });
     });
 
-    // Show the first tab by default
-    if (tabs.length > 0) {
-        tabs[0].classList.remove('hidden');
-        sidebars[0].classList.remove('hidden');
-        navLinks[0].classList.add('bg-gray-700', 'text-white'); // Add active styles
+    // if query param group has a value, show the tab with the id of the value
+    const urlParams = new URLSearchParams(window.location.search);
+    let group = urlParams.get('group');
+    if (!group) {
+        group = tabs[0].id
     }
 
+    const target = document.getElementById(group);
+    const targetSidebar = document.getElementById(group + "-sidebar");
+    const navLink = document.querySelector(`nav a[href="#${group}"]`);
+    target.classList.remove('hidden');
+    targetSidebar.classList.remove('hidden');
+    navLink.classList.add('bg-gray-100', 'text-indigo-950', 'font-semibold', 'hover:bg-gray-300'); // Add active styles
+
     document.querySelectorAll('form').forEach(function (form) {
-        if (form.id === 'global-vars-form') { // Skip the global vars form
+        if (form.id.startsWith('global-vars-form')) { // Skip the global vars form
             return;
         }
         form.onsubmit = function (event) {
@@ -98,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     });
 
-    var form = document.getElementById('global-vars-form');
+    const form = document.getElementById('global-vars-form-' + group);
     form.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent default form submission
         saveGlobalVars(form);
@@ -106,18 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-        closeGlobalsSlideOver();
-    }
-});
-document.addEventListener('click', function (event) {
-    var slideover = document.getElementById('globalVarSlideOver');
-    // Check if the click is outside the slideover
-    if (slideover.classList.contains('open') && !slideover.contains(event.target)) {
-        closeGlobalsSlideOver();
-    }
-});
 
 function saveGlobalVars(form) {
     var formData = new FormData(form);
@@ -135,7 +160,7 @@ function saveGlobalVars(form) {
         body: json
     })
         .then(() => {
-            parent.closeGlobalsSlideOver();
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -143,7 +168,7 @@ function saveGlobalVars(form) {
 }
 
 function executeFunction(form, group) {
-    const funcName = form.id;
+    const funcName = form.id.replace('-form', '');
     const resultElement = document.getElementById(`${funcName}_result`);
     const resultSection = document.getElementById(`${funcName}_section`);
     const copyButton = document.getElementById(`${funcName}_copy`);

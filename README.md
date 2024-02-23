@@ -55,9 +55,11 @@ Think of this like [Swagger UI](https://swagger.io/tools/swagger-ui/), but for p
    Comes with an integrated Flask web server to host the UI.
 6. **Clipboard Support** <br>
    Easy copy-to-clipboard feature for function outputs.
-7. **Global Variables** <br>
+7. **Quick navigation Sidebar** <br>
+   If you have too many functions, the sidebar can be used to quickly navigate to your function
+8. **Global Variables** <br>
    Set global variables for your script, from within the UI.
-8. **Type Inferring (This is Cool !!)** <br>
+9. **Type Inferring (This is Cool !!)** <br>
    Functions that contain arguments with types, are inferred and rendered accordingly in the INPUT form
 
 ## Installation
@@ -137,8 +139,7 @@ def hello_world(name):
     return f"Hello {name}. {DEFAULT} {DEFAULT_2}"  # <-- using the global variables
 ```
 
-Use should see a button on the top right corner of the UI, which will allow you to set the global variables. <br>
-![global.png](resources/globalvar-example.png)
+The left navigation bar contains a section for Global Variables, which will allow you to set them. <br>
 
 ### 2. Function Parameter Type Inferring
 

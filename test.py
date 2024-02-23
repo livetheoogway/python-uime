@@ -64,6 +64,10 @@ def make_api_call9(url, data="Some default value"):
 def make_api_call10(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+@ui_enabled(group="group1", description="This will return a json")
+def this_is_quite_a_really_really_really_really_really_long_function(url, data="Some default value"):
+    return json.dumps({"url": url, "data": hello_world(data)})
+
 
 @ui_enabled(group="group2")
 def sum_math_function(a: int, b: int):
@@ -74,6 +78,53 @@ def sum_math_function(a: int, b: int):
 def difference_math_function(a: int, b: int = 22):
     print(type(b))
     return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function1(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function2(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function3(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function4(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function5(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function6(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="group2")
+def difference_math_function7(a: int, b: int = 22):
+    print(type(b))
+    return a - b
+
+
+@ui_enabled(group="THIS IS A LONG GROUP NAME", title="Hello World", description="This will return a string")
+def long_name_hello_world(name, value: bool = True):
+    return f"Hello {name}. {DEFAULT} {DEFAULT_2} | {value}"
 
 
 @ui_enabled(group="group1")
