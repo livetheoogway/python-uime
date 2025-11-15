@@ -1,4 +1,4 @@
-# Copyright 2023. Tushar Naik
+# Copyright 2025. Tushar Naik
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
 import logging
 import sys
 
+from docutils.nodes import description
 from flask import Flask, render_template, request, jsonify, redirect
 
 from .decorator import ui_enabled_functions, global_variables
 
 app = Flask(__name__)
-
+default_title="Bring your Python scripts to life."
+default_description="A utility workbench for executing decorated functions in style."
 
 def get_default_logger():
     logger = logging.getLogger('uime')
@@ -73,11 +75,14 @@ def run_function(group, func_name):
 
 @app.route('/')
 def index():
-    return render_template('index.html', groups=ui_enabled_functions, global_vars=global_variables)
+    return render_template('index.html', groups=ui_enabled_functions, global_vars=global_variables,
+                           title=default_title, description=default_description)
 
 
 def start_server(host: str | None = None,
                  port: int | None = None,
+                 title: str | None = None,
+                 description: str | None = None,
                  debug: bool = False):
     functions = ""
     for group, func_list in ui_enabled_functions.items():
@@ -86,6 +91,14 @@ def start_server(host: str | None = None,
             functions += f"\t{func.name}\n"
 
     logger.info(f"Registered functions:\n{functions}")
+
+    global default_title
+    global default_description
+    if title:
+        default_title = title
+    if description:
+        default_description = description
+
     app.run(debug=debug, host=host, port=port)
 
 

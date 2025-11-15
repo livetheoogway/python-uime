@@ -46,21 +46,25 @@ Think of this like [Swagger UI](https://swagger.io/tools/swagger-ui/), but for p
    Decorate Python functions with `@ui_enabled` to expose them as web forms.
 2. **Automatic UI Generation** <br>
    Generates web UIs for decorated functions, with form fields corresponding to function parameters.
-3. **Grouping of Functions** <br>
+3. **Dark Mode** <br>
+   A check-box for the classic developer query, "Does it come with dark mode?". Why Yes, yes it does..
+4. **Grouping of Functions** <br>
    Organize functions into <br>
    groups (nav-tabs) in the UI for better organization.
-4. **Customizable Function Metadata** <br>
+5. **Customizable Function Metadata** <br>
    Specify titles, descriptions, and other metadata for functions.
-5. **Built-in Web Server** <br>
+6. **Built-in Web Server** <br>
    Comes with an integrated Flask web server to host the UI.
-6. **Clipboard Support** <br>
+7. **Clipboard Support** <br>
    Easy copy-to-clipboard feature for function outputs.
-7. **Quick navigation Sidebar** <br>
+8. **Quick navigation Sidebar** <br>
    If you have too many functions, the sidebar can be used to quickly navigate to your function
-8. **Global Variables** <br>
+9. **Global Variables** <br>
    Set global variables for your script, from within the UI.
-9. **Type Inferring (This is Cool !!)** <br>
-   Functions that contain arguments with types, are inferred and rendered accordingly in the INPUT form
+10. **Type Inferring (This is Cool !!)** <br>
+    Functions that contain arguments with types, are inferred and rendered accordingly in the INPUT form.<br>
+    Function arguments with complex data-structures like list of strings, or json strings are
+    supported.
 
 ## Installation
 
@@ -78,7 +82,7 @@ Basically 3 lines of code
 from uime import start_server, ui_enabled  ## <--- This is line 1
 
 
-##  Below is line 2
+##  Below decorator is line 2
 @ui_enabled(group="Greeting", description="This function will greet you (with positivity!)")
 def hello_world(name):
     return f"Hello {name}"
@@ -102,6 +106,7 @@ def difference_math_function(a, b):
 
 if __name__ == '__main__':
     start_server()  ## <--- This is line 3 (As promised, within 3 lines of code)
+    start_server(port=5001, title="My Cool Title", description="I will struggle to describe this well")  # if you wish to customize ports or title
 ```
 
 ![img.png](resources/ui-example.png)
@@ -141,25 +146,27 @@ def hello_world(name):
 
 The left navigation bar contains a section for Global Variables, which will allow you to set them. <br>
 
+![img.png](resources/globalvar-example.png)
+
 ### 2. Function Parameter Type Inferring
 
-| type          | form input   | type inferred          |
-|---------------|--------------|------------------------|
-| nothing       | text input   | str                    |
-| str           | text input   | str                    |
-| bool          | switch       | bool                   |
-| int           | number input | int                    |
-| float         | number input | float                  |
-| complex       | number input | complex                |
-| list          | text area    | list of string         |
-| set           | text area    | set of string          |
-| type          | text area    | list of string         |
-| List[str]     | text area    | list of string         |
-| List[int]     | text area    | list of int            |
-| List[float]   | text area    | list of float          |
-| List[complex] | text area    | list of complex        |
-| List[list]    | text area    | list of list of string |
-| dict          | text area    | json to dict           |
+| type          | form input                 | type inferred          |
+|---------------|----------------------------|------------------------|
+| nothing       | text input                 | str                    |
+| str           | text input                 | str                    |
+| bool          | switch                     | bool                   |
+| int           | number input               | int                    |
+| float         | number input               | float                  |
+| complex       | number input               | complex                |
+| list          | text area                  | list of string         |
+| set           | text area                  | set of string          |
+| type          | text area                  | list of string         |
+| List[str]     | text area                  | list of string         |
+| List[int]     | text area                  | list of int            |
+| List[float]   | text area                  | list of float          |
+| List[complex] | text area                  | list of complex        |
+| List[list]    | text area                  | list of list of string |
+| dict          | text area for json editing | json to dict           |
 
 Sample code below shows a list of parameters that have different types:
 

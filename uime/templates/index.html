@@ -1,200 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UI-ME</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Python UI-Me</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-
-    <link href="/static/css/uime.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/uime.css">
 </head>
-<body class="bg-gray-100">
-
-<!-- Tailwind CSS Navbar -->
-<nav class="bg-indigo-950">
-    <div class="flex flex-row relative">
-        <div class="px-2 lg:px-8 mt-2 inline-block">
-            <p id="logo"  class="block antialiased font-sans text-sm font-bold leading-tight text-primary text-white">python <br> ui-me</p>
+<body class="uime-body">
+<div class="uime-shell">
+    <header class="uime-header">
+        <div class="brand">
+            <span class="brand-icon" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="4 17 10 11 4 5" />
+                  <line x1="12" y1="19" x2="20" y2="19" />
+                </svg>
+            </span>
+            <div class="brand-copy">
+                <p class="brand-kicker">python ui-me</p>
+                <h1 class="brand-title">{{ title }}</h1>
+                <p class="brand-subtitle">{{ description }}</p>
+            </div>
         </div>
-        <div class="mx-44 max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center">
-                <!-- Navbar items -->
-                <div class="hidden sm:block sm:ml-8">
-                    <div class="flex space-x-4">
-                        {% for group in groups.keys() %}
-                            <a href="#{{ group }}"
-                               class="text-gray-300 hover:bg-gray-700 rounded-full px-5 pb-1 text-lg truncate max-w-[12rem]">
-                                {{ group }}
-                            </a>
-                        {% endfor %}
-                    </div>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
+            <span class="sr-only">Toggle theme</span>
+            <svg data-icon="sun" viewBox="0 0 24 24" role="presentation" focusable="false">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2" />
+                <path d="M12 21v2" />
+                <path d="M4.22 4.22 5.64 5.64" />
+                <path d="M18.36 18.36l1.42 1.42" />
+                <path d="M1 12h2" />
+                <path d="M21 12h2" />
+                <path d="m4.22 19.78 1.42-1.42" />
+                <path d="M18.36 5.64l1.42-1.42" />
+            </svg>
+            <svg data-icon="moon" viewBox="0 0 24 24" role="presentation" focusable="false">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z" />
+            </svg>
+        </button>
+    </header>
+
+    <section class="uime-tabs" role="tablist" aria-label="Function groups">
+        {% for group in groups.keys() %}
+            <button
+                type="button"
+                class="tab-trigger{% if loop.first %} is-active{% endif %}"
+                data-tab-trigger="{{ group }}"
+                role="tab"
+                aria-selected="{{ 'true' if loop.first else 'false' }}"
+            >
+                <span class="tab-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                        <path d="M5 12h14" />
+                        <path d="M5 5h14" />
+                        <path d="M5 19h14" />
+                    </svg>
+                </span>
+                {{ group }}
+            </button>
+        {% endfor %}
+    </section>
+
+    {% for group, funcs in groups.items() %}
+        <section id="{{ group }}" class="group-panel{% if loop.first %} is-active{% endif %}" data-group-panel role="tabpanel">
+            <aside class="group-sidebar">
+                <div class="sidebar-card">
+                    <p class="sidebar-kicker">Functions</p>
+                        <nav class="sidebar-nav" aria-label="{{ group }} functions">
+                            {% for func in funcs %}
+                            <button
+                                type="button"
+                                class="sidebar-link"
+                                data-scroll-to="{{ func.name }}"
+                                data-group="{{ group }}"
+                                data-func="{{ func.name }}"
+                            >
+                                <span aria-hidden="true">→</span>
+                                {{ func.title or func.name }}
+                            </button>
+                            {% endfor %}
+                        </nav>
                 </div>
-            </div>
-        </div>
-    </div>
 
-</nav>
-
-<div class="flex flex-row p-4">
-
-    <!-- Sidebar -->
-    <div class="basis-1/6">
-        <aside class="h-screen sticky top-4">
-            <div class="relative flex max-h-[calc(100vh-10rem)] overflow-y-scroll w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow shadow-blue-gray-900/5 hover:shadow-xl ">
-                {% for group, funcs in groups.items() %}
-                    <div id="{{ group }}-sidebar" class="sidebar hidden pt-4 mb-8">
-                        <div class="px-2">
-                            <h2 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-indigo-800">
-                                Functions</h2>
-                            <ul class="mt-4">
-                                {% for func in funcs %}
-
-                                    <div class="flex items-center w-full p-1 leading-tight transition-all rounded-lg outline-none text-start">
-                                        <li>
-                                            <div class="flex items-center w-64 rounded-lg mt-1">
-                                                <a href="#{{ func.name }}" class="font-sans text-base truncate border-l pl-4 -ml-px border-transparent hover:border-slate-400 text-slate-500 hover:text-slate-900 ">
-                                                    {{ func.title }}
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </div>
-                                {% endfor %}
-                            </ul>
-                            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-200">
-                            <div class="mt-4">
-                                <h2 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-indigo-800">
-                                    Global Variables</h2>
-                                <form id="global-vars-form-{{ group }}" class="mt-4">
-                                    {% for var in global_vars %}
-                                        <div class="flex flex-col items-end gap-10 mt-4">
-                                            <div class="relative w-full min-w-[200px] h-10 mb-2">
-                                                <input
-                                                        id="{{ var }}" name="{{ var }}" required value="{{ global_vars[var]['value'] }}"
-                                                        class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
-                                                        placeholder=" "/>
-                                                <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-gray-900 after:border-blue-gray-200 peer-focus:after:!border-gray-900">
-                                                    {{ var }}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                    <button type="submit"
-                                            class="flex justify-center rounded-md bg-indigo-800 px-3 py-1 mt-4 text-sm shadow-indigo-500/50 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                            data-ripple-light="true">
-                                        Save
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                {% if global_vars|length > 0 %}
+                    <div class="sidebar-card">
+                        <p class="sidebar-kicker">Globals</p>
+                        <form id="global-vars-form-{{ group }}" class="global-form" data-global-form>
+                            {% for var in global_vars %}
+                                <label class="field">
+                                    <span class="field-meta">
+                                        <span class="field-label">{{ var }}</span>
+                                        <span class="field-type">global</span>
+                                    </span>
+                                    <input
+                                        id="{{ group }}-{{ var }}"
+                                        class="text-input"
+                                        name="{{ var }}"
+                                        value="{{ global_vars[var]['value'] }}"
+                                        placeholder="Enter value"
+                                    />
+                                </label>
+                            {% endfor %}
+                            <button type="submit" class="ghost-button">
+                                Save globals
+                            </button>
+                        </form>
                     </div>
-                {% endfor %}
-            </div>
-        </aside>
-    </div>
+                {% endif %}
+            </aside>
 
-    <div class="basis-5/6 ml-4">
-        <!-- Function execution -->
-        {% for group, funcs in groups.items() %}
-            <div id="{{ group }}" class="tab-content hidden mb-8">
-
+            <main class="group-main" aria-live="polite">
                 {% for func in funcs %}
-                    <div id="{{ func.name }}"  class="rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow shadow-blue-gray-900/5 hover:shadow-xl mb-6 func">
-                        <form id="{{ func.name }}-form" class="mt-1">
-                            <div class="flex items-center mb-4">
-
-                                <button type="submit"
-                                        class="mr-4 flex justify-center rounded-md bg-indigo-800 px-3 py-1 text-sm shadow-indigo-500/50 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                        data-ripple-light="true">
+                    <article id="{{ func.name }}" class="function-card" data-group="{{ group }}" data-func="{{ func.name }}">
+                        <form id="{{ func.name }}-form" class="function-form" data-group="{{ group }}">
+                            <div class="function-card-head">
+                                <div class="function-head-info">
+                                    <span class="function-icon" aria-hidden="true">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        >
+                                          <polyline points="16 18 22 12 16 6" />
+                                          <polyline points="8 6 2 12 8 18" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <p class="function-name">{{ func.title or func.name }}</p>
+                                        {% if func.description %}
+                                            <p class="function-desc">{{ func.description }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <button type="submit" class="primary-button function-execute">
+                                    <span aria-hidden="true">▶</span>
                                     Execute
                                 </button>
-                                <h3 class="text-xl">
-                                <span class="bg-indigo-100/80 text-indigo-800 text-lg font-normal hover:font-bold mr-2 px-3 py-2 rounded">
-                                    {{ func.title }}
-                                </span>
-                                </h3>
-                                {% if func.description %}
-                                    <p class="font-light text-xs text-gray-400 mt-1">{{ func.description }}</p>
-                                {% endif %}
                             </div>
-                            {% for param in func.parameters %}
-                                {% if (param.type == 'int') or (param == 'float') or (param == 'complex') %}
-                                    <div class="flex flex-col items-end gap-6">
-                                        <div class="relative w-full min-w-[200px] h-10 mb-2">
-                                            <input id="{{ param.name }}" name="{{ param.name }}" required
-                                                   type="number"
-                                                   class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-indigo-600"
-                                                    {% if param.default is not none %} value="{{ param.default }}" {% endif %}
-                                                   placeholder=" "/>
-                                            <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-indigo-600 after:border-blue-gray-200 peer-focus:after:!border-indigo-600">
-                                                {{ param.name }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                {% elif param.type == 'bool' %}
-                                    <div class="inline-flex items-center py-2 mb-1">
-                                        <span class="ms-1 text-sm font-medium text-gray-800 dark:text-gray-800">{{ param.name }}</span>
-                                        <div class="inline-flex px-3">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" id="{{ param.name }}" name="{{ param.name }}"
-                                                       {% if param.default %}checked{% endif %} class="sr-only peer">
-                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-white-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-grey-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-white-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-800"></div>
 
-                                            </label>
+                            <div class="field-stack">
+                                {% for param in func.parameters %}
+                                    {% set param_type = param.type %}
+                                    <div class="field">
+                                        <div class="field-meta">
+                                            <label for="{{ func.name }}-{{ param.name }}" class="field-label">{{ param.name }}</label>
+                                            {% if param_type and param_type != 'str' %}
+                                                <span class="field-type">{{ param_type }}</span>
+                                            {% endif %}
                                         </div>
-                                    </div>
-                                {% elif param.type in ('List[str]', 'list', 'set', 'tuple', 'List[str]', 'List[int]', 'List[float]' ,'List[list]', 'dict') %}
-                                    <div class="w-120">
-                                        <div class="relative w-full min-w-[200px]">
-                                    <textarea id="{{ param.name }}"
-                                              name="{{ param.name }}" required
-                                              class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-indigo-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-indigo-200 focus:border-2 focus:border-indigo-600 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50" placeholder=" ">{% if param.default is not none %}{{ param.default }}{% endif %}</textarea>
-                                            <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">{{ param.name }}</label>
-                                        </div>
-                                    </div>
 
-                                {% else %}
-                                    <div class="flex flex-col items-end gap-6">
-                                        <div class="relative w-full min-w-[200px] h-10 mb-2">
-                                            <input id="{{ param.name }}" name="{{ param.name }}" required
-                                                   class="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-indigo-200 placeholder-shown:border-t-indigo-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-indigo-600"
-                                                    {% if param.default is not none %} value="{{ param.default }}" {% endif %}
-                                                   placeholder=" "/>
-                                            <label class="flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate peer-placeholder-shown:text-blue-gray-500 leading-tight peer-focus:leading-tight peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500 transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px] peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-md after:border-t peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-gray-500 peer-focus:text-gray-900 before:border-blue-gray-200 peer-focus:before:!border-indigo-600 after:border-blue-gray-200 peer-focus:after:!border-indigo-600">
-                                                {{ param.name }}
+                                        {% if param_type in ('int', 'float') %}
+                                            <input
+                                                id="{{ func.name }}-{{ param.name }}"
+                                                name="{{ param.name }}"
+                                                type="number"
+                                                class="text-input"
+                                                step="{{ '1' if param_type == 'int' else '0.01' }}"
+                                                {% if param.default is not none %}value="{{ param.default }}"{% endif %}
+                                                placeholder="Enter {{ param.name }}"
+                                                required
+                                            />
+                                        {% elif param_type == 'complex' %}
+                                            <input
+                                                id="{{ func.name }}-{{ param.name }}"
+                                                name="{{ param.name }}"
+                                                type="text"
+                                                class="text-input"
+                                                {% if param.default is not none %}value="{{ param.default }}"{% endif %}
+                                                placeholder="e.g. 3+4j"
+                                                required
+                                            />
+                                        {% elif param_type == 'bool' %}
+                                            <label class="switch">
+                                                <input
+                                                    type="checkbox"
+                                                    id="{{ func.name }}-{{ param.name }}"
+                                                    name="{{ param.name }}"
+                                                    class="switch-input"
+                                                    value="on"
+                                                    {% if param.default %}checked{% endif %}
+                                                />
+                                                <span class="switch-control" aria-hidden="true"></span>
+                                                <span class="switch-text">False</span>
                                             </label>
-                                        </div>
+                                        {% elif param_type == 'dict' %}
+                                            <textarea
+                                                id="{{ func.name }}-{{ param.name }}"
+                                                name="{{ param.name }}"
+                                                class="text-area json-editor"
+                                                data-json-editor="dict"
+                                                placeholder="{ }"
+                                                spellcheck="false"
+                                                required
+                                            >{% if param.default is not none %}{{ param.default }}{% endif %}</textarea>
+                                        {% elif not param_type %}
+                                            <textarea
+                                                id="{{ func.name }}-{{ param.name }}"
+                                                name="{{ param.name }}"
+                                                class="text-area json-editor"
+                                                data-json-editor="generic"
+                                                placeholder="{ }"
+                                                spellcheck="false"
+                                                required
+                                            >{% if param.default is not none %}{{ param.default }}{% endif %}</textarea>
+                                        {% elif param_type in ('List[str]', 'list', 'set', 'tuple', 'List[int]', 'List[float]', 'List[list]', 'List[complex]') %}
+                                            <textarea
+                                                id="{{ func.name }}-{{ param.name }}"
+                                                name="{{ param.name }}"
+                                                class="text-area"
+                                                placeholder="One entry per line"
+                                                required
+                                            >{% if param.default is not none %}{{ param.default }}{% endif %}</textarea>
+                                        {% else %}
+                                            <input
+                                                id="{{ func.name }}-{{ param.name }}"
+                                                name="{{ param.name }}"
+                                                type="text"
+                                                class="text-input"
+                                                {% if param.default is not none %}value="{{ param.default }}"{% endif %}
+                                                placeholder="Enter {{ param.name }}"
+                                                required
+                                            />
+                                        {% endif %}
                                     </div>
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
+
                         </form>
-                        <div id="{{ func.name }}_section" class="relative mt-4 hidden">
-                            <pre id="{{ func.name }}_result" class="mt-4 p-3 bg-gray-100 rounded overflow-x-hidden whitespace-pre-wrap word-break break-all max-h-96"></pre>
-                            <button id="{{ func.name }}_copy" onclick="copyToClipboard('{{ func.name }}_result')"
-                                    class="hidden absolute top-2 right-2 p-2 inline-flex items-center text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-                                    <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
 
-    </div>
+                        <div id="{{ func.name }}_section" class="result-panel hidden" data-result-panel>
+                            <div class="result-meta">
+                                <span class="result-pill" data-result-label>Waiting…</span>
+                                <span class="result-time" data-result-time></span>
+                                <button
+                                    type="button"
+                                    class="ghost-button ghost-button--quiet"
+                                    id="{{ func.name }}_copy"
+                                    data-copy-target="{{ func.name }}_result"
+                                >
+                                    Copy
+                                </button>
+                            </div>
+                            <pre id="{{ func.name }}_result" class="result-body" tabindex="0"></pre>
+                        </div>
+                    </article>
+                {% endfor %}
+            </main>
+        </section>
+    {% endfor %}
 </div>
 
-<!-- JavaScript -->
-<script src="https://cdn.tailwindcss.com"></script>
 <script src="/static/js/uime.js"></script>
-
 </body>
 </html>

@@ -1,4 +1,5 @@
 import json
+import time
 from typing import List
 
 from uime import ui_enabled, start_server, ui_global
@@ -28,45 +29,83 @@ def hello_world(name, value: bool = True):
 def make_api_call(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+
 @ui_enabled(group="group1", title="My API2", description="This will return a json")
 def make_api_call2(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
+
 
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call3(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call4(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
+
 
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call5(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call6(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
+
 
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call7(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call8(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
+
 
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call9(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+
 @ui_enabled(group="group1", description="This will return a json")
 def make_api_call10(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
 
+
 @ui_enabled(group="group1", description="This will return a json")
 def this_is_quite_a_really_really_really_really_really_long_function(url, data="Some default value"):
     return json.dumps({"url": url, "data": hello_world(data)})
+
+
+@ui_enabled(group="group1", description="This will return a large json")
+def long_json_response(url, data="Some default value"):
+    # return a really large json
+    return json.dumps(
+        {
+            "url": url,
+            "data": hello_world(data),
+            "large_data": ["data"] * 1000
+
+        }
+    )
+
+
+@ui_enabled(group="group1", description="This will throw an error")
+def error_response():
+    raise Exception("This is a test exception")
+
+
+@ui_enabled(group="group1", description="This will throw an error with json response")
+def error_response_json():
+    raise Exception(json.dumps({"error": "This is a test exception with json"}))
+
+
+@ui_enabled(group="group1", description="This will throw an error with json response")
+def formatted_input(input: dict):
+    return input
 
 
 @ui_enabled(group="group2")
@@ -127,11 +166,18 @@ def long_name_hello_world(name, value: bool = True):
     return f"Hello {name}. {DEFAULT} {DEFAULT_2} | {value}"
 
 
+@ui_enabled(group="THIS IS A LONG GROUP NAME", title="Slow World",
+            description="This will return a string in a slow manner after 2 seconds")
+def slow_hello_world(name, value: bool = True):
+    time.sleep(2)
+    return f"SLOW {name}. {DEFAULT} {DEFAULT_2} | {value}"
+
+
 @ui_enabled(group="group1")
 def test_list_string(regular_list: list,
                      bool_data: bool,
                      strings: List[str], ints: List[int], dicts: dict, list_of_list: List[list],
-                     list_with_default:list = "more,default"):
+                     list_with_default: list = "more,default"):
     return f"""
     list = {regular_list},
     bool_data: {bool_data}
@@ -149,4 +195,4 @@ def large_string():
 
 
 if __name__ == '__main__':
-    start_server(port=5001)
+    start_server(port=5001, title="Testing Server", description="This is a test server for uime library")
