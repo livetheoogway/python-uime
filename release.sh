@@ -45,6 +45,9 @@ sleep 5
 echo "Removing current distribution"
 rm dist/*
 
+echo "Minifying static assets"
+./scripts/minify_assets.py
+
 # Commands below this have && which ensures that the next command only runs if the previous command was successful
 
 echo "Setup tools running to create distribution"
@@ -54,6 +57,8 @@ python3 setup.py sdist &&
   echo "Adding the changed version to git " &&
   git add setup.py &&
   git add README.md &&
+  git add uime/static/css/uime.min.css &&
+  git add uime/static/js/uime.min.js &&
   git commit -m "Auto incrementing version to $version" &&
   echo "Creating a git tag and pushing everything" &&
   git tag -a "v$version" -m "$description" &&

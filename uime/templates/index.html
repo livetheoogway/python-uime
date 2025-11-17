@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/uime.css">
+    <link rel="stylesheet" href="/static/css/uime.min.css" onerror="this.onerror=null;this.href='/static/css/uime.css';">
 </head>
 <body class="uime-body">
 <div class="uime-shell">
@@ -270,6 +270,6 @@
     {% endfor %}
 </div>
 
-<script src="/static/js/uime.js"></script>
+<script src="/static/js/uime.min.js" defer onerror="this.onerror=null;this.src='/static/js/uime.js';"></script>
 </body>
 </html>
