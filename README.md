@@ -12,34 +12,28 @@
 
 ## UI-Me
 
-Python UI-Me (as in: Python methods saying "make elegant UI forms out of me") is a Python package that enables
-developers to quickly create web-based user interfaces for Python functions. It uses decorators to mark functions for UI
-exposure and a built-in Flask server to render the UI.
+Python UI-Me (as in: Python methods saying "make elegant UI forms out of me") is a tiny-but-mighty package that turns
+your everyday functions into sleek web control panels. Tag a function with a decorator, let the bundled Flask app spin
+up, and suddenly your script feels like a real product instead of a one-off command.
 
 ## TL;DR
 
-**The promise:** With-in 3 lines of code, you will be able to get a working UI form out of your python functions. 
-The UI is going to be rich, sleek and feature filled, without any dependencies on heavy libraries, no react, no design systems, etc. Just plain vanilla html, css, javascript.<br>
-**Another promise:** You won't regret the time spent in reading the [Motivation](#Motivation) section, it is not too
-long<br>
-But for the ones seeking instant gratification: watch this fancy gif (which I totally struggled to create):<br>
+**What you get:** In three lines you have a hosted UI where every argument becomes an input, responses render in rich JSON, and the whole thing still feels feather-light because it is plain HTML/CSS/JS (no React, no design system du jour).<br>
+**What you keep:** Your playful, slightly chaotic script-driven workflow. UI-Me just gives it buttons, dark mode, and a logo.<br>
+**What to look at first:** The [Motivation](#motivation) story is short and spicy, but if your build server is already screaming, here’s the gif version:<br>
 ![demo.gif](resources/demo.gif)
 
 ## Motivation
 
-I'm pretty sure I'm not the only lazy developer that over-engineers every small daily task as scripts. <br>
-This is yet another attempt of the aforementioned over-engineering, towards making it as easy as possible to
-whip up a quick UI to run those scripts. Specifically python scripts.<br>
-Yes, there are good alternatives, `argparse` being a popular one for running your scripts through cli. But I've always
-struggled with it the moment the script has multiple functionalities or modules.
-The day you start forgetting your engineering principles and start overloading your one script to do many things (
-because duh! that was the whole point of writing it as a script), these cli tools start to fall apart.  
-Not the mention the amount of code you'd have to write, like stitching parsers and subparsers and subsubparsers
-and.. <br>
+I'm pretty sure I'm not the only lazy developer that over-engineers every tiny chore as a script. This project is my
+latest effort toward making those scripts slightly less cryptic to future-me (and whoever is sitting next to me asking
+“what happens if I click this?”).<br>
+Yes, `argparse` and friends exist. But the minute a single script starts doing five things, or you forget what flags you
+invented at 2 AM, CLI ergonomics fall apart. And the amount of boilerplate to wire multiple parsers... no thanks.<br>
 
-Having said that, for proper production scripts, UI-me is not the way to go. But for those quick and dirty daily /
-personal scripts, you would find UI-me useful <br>
-Think of this like [Swagger UI](https://swagger.io/tools/swagger-ui/), but for python functions. <br>
+So UI-Me is the middle ground: not meant for enterprise-scale production flows, but absolutely meant for the pile of
+daily automation you keep collecting. Think of it as [Swagger UI](https://swagger.io/tools/swagger-ui/) for your Python
+functions, except it is unapologetically simple and proudly decorator-powered.
 
 ## Features
 
