@@ -18,7 +18,8 @@ exposure and a built-in Flask server to render the UI.
 
 ## TL;DR
 
-**The promise:** With-in 3 lines of code, you will be able to get a working UI form out of your python functions<br>
+**The promise:** With-in 3 lines of code, you will be able to get a working UI form out of your python functions. 
+The UI is going to be rich, sleek and feature filled, without any dependencies on heavy libraries, no react, no design systems, etc. Just plain vanilla html, css, javascript.<br>
 **Another promise:** You won't regret the time spent in reading the [Motivation](#Motivation) section, it is not too
 long<br>
 But for the ones seeking instant gratification: watch this fancy gif (which I totally struggled to create):<br>
@@ -27,8 +28,8 @@ But for the ones seeking instant gratification: watch this fancy gif (which I to
 ## Motivation
 
 I'm pretty sure I'm not the only lazy developer that over-engineers every small daily task as scripts. <br>
-Honestly, this is yet another attempt of the aforementioned over-engineering, towards making it as easy as possible to
-whip up a quick UI to run those scripts.<br>
+This is yet another attempt of the aforementioned over-engineering, towards making it as easy as possible to
+whip up a quick UI to run those scripts. Specifically python scripts.<br>
 Yes, there are good alternatives, `argparse` being a popular one for running your scripts through cli. But I've always
 struggled with it the moment the script has multiple functionalities or modules.
 The day you start forgetting your engineering principles and start overloading your one script to do many things (
@@ -203,11 +204,13 @@ The UI would look something like this
 
 ## Dependencies
 
-The following is not the exhaustive list of dependencies, but UI-me was made possible because of these:
+The following is list of essential dependencies in python:
 
 - [Flask](https://flask.palletsprojects.com/en/3.0.x/): quickest way to spin up a web server
 - [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/templates/): for templating
-- [Tailwind CSS](https://tailwindcss.com/): it is a pretty neat, utility-first CSS framework for rapid UI development
+
+Reiterating here that UI Me does not depend on any heavy front-end libraries or frameworks. The entire UI is built using
+vanilla HTML, CSS (Tailwind CSS for styling) and JavaScript.
 
 ## Features Pending
 
