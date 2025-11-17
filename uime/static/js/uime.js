@@ -1,4 +1,13 @@
 (function () {
+    const THEME_OPTIONS = [
+        { id: 'dark-tritanopia', label: 'Dark Tritanopia' },
+        { id: 'soft-dark', label: 'Soft Dark' },
+        { id: 'dark', label: 'Dark' },
+        { id: 'light', label: 'Light' },
+        { id: 'solarized', label: 'Solarized' },
+        { id: 'mono-blue', label: 'Monochrome Blue' },
+    ];
+
     let activeGroupId = null;
     const sidebarLinkLookup = new Map();
     const activeSidebarLinks = new Map();
@@ -6,7 +15,7 @@
     let scrollRaf = null;
 
     document.addEventListener('DOMContentLoaded', () => {
-        initThemeToggle();
+        initThemePicker();
         initSidebarNav();
         initTabs();
         initScrollHighlighting();
@@ -16,28 +25,44 @@
         hydrateSwitches();
     });
 
-    function initThemeToggle() {
+    function initThemePicker() {
         const root = document.documentElement;
-        const toggle = document.querySelector('[data-theme-toggle]');
+        const panel = document.querySelector('[data-theme-panel]');
         const storedTheme = window.localStorage.getItem('uime-theme');
-        const initialTheme = storedTheme || root.dataset.theme || 'dark';
-        root.dataset.theme = initialTheme;
+        const fallbackTheme = root.dataset.theme || THEME_OPTIONS[0].id;
+        const initialTheme = THEME_OPTIONS.some(({ id }) => id === storedTheme) ? storedTheme : fallbackTheme;
+        const swatches = document.querySelectorAll('[data-theme-option]');
 
-        const updateLabel = () => {
-            if (!toggle) {
+        const applyTheme = (theme) => {
+            const option = THEME_OPTIONS.find(({ id }) => id === theme);
+            if (!option) {
                 return;
             }
-            const next = root.dataset.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
-            toggle.setAttribute('aria-label', next);
+            root.dataset.theme = option.id;
+            window.localStorage.setItem('uime-theme', option.id);
+            panel?.setAttribute('data-current-theme', option.id);
+            swatches.forEach((swatch) => {
+                const isActive = swatch.dataset.themeOption === option.id;
+                swatch.classList.toggle('is-selected', isActive);
+                swatch.setAttribute('aria-checked', String(isActive));
+                swatch.tabIndex = isActive ? 0 : -1;
+            });
         };
 
-        updateLabel();
+        applyTheme(initialTheme);
+        panel?.setAttribute('data-current-theme', initialTheme);
 
-        toggle?.addEventListener('click', () => {
-            const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-            root.dataset.theme = nextTheme;
-            window.localStorage.setItem('uime-theme', nextTheme);
-            updateLabel();
+        swatches.forEach((swatch) => {
+            const theme = swatch.dataset.themeOption;
+            swatch.setAttribute('role', 'radio');
+            swatch.setAttribute('aria-label', THEME_OPTIONS.find(({ id }) => id === theme)?.label || theme);
+            swatch.addEventListener('click', () => applyTheme(theme));
+            swatch.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    applyTheme(theme);
+                }
+            });
         });
     }
 
