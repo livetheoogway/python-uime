@@ -41,7 +41,7 @@ functions, except it is unapologetically simple and proudly decorator-powered.
    Decorate Python functions with `@ui_enabled` to expose them as web forms.
 2. **Automatic UI Generation** <br>
    Generates web UIs for decorated functions, with form fields corresponding to function parameters.
-3. **Dark Mode** <br>
+3. **Themes** <br>
    A check-box for the classic developer query, "Does it come with dark mode?". Why Yes, yes it does..
 4. **Grouping of Functions** <br>
    Organize functions into <br>
@@ -195,6 +195,23 @@ The UI would look something like this
 > ie: NEWLINE is checked first, if available, the string will be split by newline and returned as a list. Then there is a
 > check for COMMA, if available, the string will be split by comma and returned as a list. Finally SPACE.
 > In case of <list of list>, it is always a check on NEWLINE for the outer list, and COMMA/SPACE for the inner lists
+
+
+### 3. Themes
+
+8 different themes to choose from, to make your UI look cool.
+1. Dark Tritanopia
+2. Soft Dark
+3. Dark Purple
+4. Dark
+5. Light
+6. White
+7. Solarized
+8. Monochrome Blue
+
+![theme_1.png](resources/theme_1.png)
+![theme_2.png](resources/theme_2.png)
+
 
 ## Dependencies
 

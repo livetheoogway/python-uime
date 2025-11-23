@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark-purple">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +35,7 @@
                 <p class="brand-subtitle">{{ description }}</p>
             </div>
         </div>
-        <div class="theme-panel" data-theme-panel data-panel-state="collapsed" data-current-theme="dark">
+        <div class="theme-panel" data-theme-panel data-panel-state="collapsed" data-current-theme="dark-purple">
             <p class="theme-panel-heading">Select Theme</p>
             <div class="theme-panel-body">
                 <div class="theme-swatch-row" role="radiogroup" aria-label="Theme selector">
@@ -47,6 +47,10 @@
                         <span class="theme-swatch-dot" aria-hidden="true"></span>
                         <span class="theme-swatch-label">Soft Dark</span>
                     </button>
+                    <button type="button" class="theme-swatch" data-theme-option="dark-purple" aria-label="Dark Purple">
+                        <span class="theme-swatch-dot" aria-hidden="true"></span>
+                        <span class="theme-swatch-label">Dark Purple</span>
+                    </button>
                     <button type="button" class="theme-swatch" data-theme-option="dark" aria-label="Dark">
                         <span class="theme-swatch-dot" aria-hidden="true"></span>
                         <span class="theme-swatch-label">Dark</span>
@@ -54,6 +58,10 @@
                     <button type="button" class="theme-swatch" data-theme-option="light" aria-label="Light">
                         <span class="theme-swatch-dot" aria-hidden="true"></span>
                         <span class="theme-swatch-label">Light</span>
+                    </button>
+                    <button type="button" class="theme-swatch" data-theme-option="white" aria-label="White">
+                        <span class="theme-swatch-dot" aria-hidden="true"></span>
+                        <span class="theme-swatch-label">White</span>
                     </button>
                     <button type="button" class="theme-swatch" data-theme-option="solarized" aria-label="Solarized">
                         <span class="theme-swatch-dot" aria-hidden="true"></span>
@@ -65,7 +73,7 @@
                     </button>
                 </div>
                 <span class="theme-panel-divider" aria-hidden="true">|</span>
-                <div class="theme-swatch theme-swatch--current" data-theme-display data-theme-option="dark" aria-hidden="true">
+                <div class="theme-swatch theme-swatch--current" data-theme-display data-theme-option="dark-purple" aria-hidden="true">
                     <span class="theme-swatch-dot" aria-hidden="true"></span>
                     <span class="sr-only">Current theme</span>
                 </div>

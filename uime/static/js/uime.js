@@ -2,8 +2,10 @@
     const THEME_OPTIONS = [
         { id: 'dark-tritanopia', label: 'Dark Tritanopia' },
         { id: 'soft-dark', label: 'Soft Dark' },
+        { id: 'dark-purple', label: 'Dark Purple' },
         { id: 'dark', label: 'Dark' },
         { id: 'light', label: 'Light' },
+        { id: 'white', label: 'White' },
         { id: 'solarized', label: 'Solarized' },
         { id: 'mono-blue', label: 'Monochrome Blue' },
     ];
