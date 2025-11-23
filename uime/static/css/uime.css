@@ -221,6 +221,53 @@ body {
     flex-direction: column;
     gap: 0.65rem;
     margin-left: auto;
+    position: relative;
+    overflow: hidden;
+    transition: padding 0.2s ease, border-radius 0.2s ease, background 0.2s ease;
+}
+
+.theme-panel-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+}
+
+.theme-panel[data-panel-state="collapsed"] {
+    padding: 0.35rem;
+    border-radius: 999px;
+    gap: 0;
+    cursor: pointer;
+    background: color-mix(in srgb, var(--surface-muted) 90%, transparent);
+    flex-direction: row;
+    align-items: center;
+}
+
+.theme-panel[data-panel-state="collapsed"] .theme-panel-heading {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+}
+
+.theme-panel[data-panel-state="collapsed"] .theme-panel-body {
+    gap: 0;
+}
+
+.theme-panel[data-panel-state="collapsed"] .theme-swatch-row,
+.theme-panel[data-panel-state="collapsed"] .theme-panel-divider {
+    opacity: 0;
+    max-width: 0;
+    width: 0;
+    margin: 0;
+    height: 0;
+    padding: 0;
+    pointer-events: none;
+    flex: 0 0 auto;
+    overflow: hidden;
+}
+
+.theme-panel[data-panel-state="collapsed"] .theme-swatch-row {
+    overflow: hidden;
 }
 
 .theme-panel-heading {
@@ -232,9 +279,20 @@ body {
     text-align: right;
 }
 
+.theme-panel-divider {
+    color: var(--border-strong);
+    align-self: stretch;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    opacity: 0.5;
+    padding-inline: 0.1rem;
+}
+
 .theme-swatch-row {
     display: flex;
     gap: 0.5rem;
+    align-items: flex-start;
 }
 
 .theme-swatch {
@@ -247,6 +305,7 @@ body {
     cursor: pointer;
     padding: 0;
     min-width: 3rem;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .theme-swatch:focus-visible {
@@ -299,6 +358,14 @@ body {
     color: var(--text-subtle);
     text-align: center;
     max-width: 4.5rem;
+}
+
+.theme-swatch--current {
+    pointer-events: none;
+}
+
+.theme-panel[data-panel-state="collapsed"] .theme-swatch--current {
+    margin-left: 0;
 }
 
 .theme-swatch.is-selected .theme-swatch-dot {

@@ -32,6 +32,41 @@
         const fallbackTheme = root.dataset.theme || THEME_OPTIONS[0].id;
         const initialTheme = THEME_OPTIONS.some(({ id }) => id === storedTheme) ? storedTheme : fallbackTheme;
         const swatches = document.querySelectorAll('[data-theme-option]');
+        let isPanelManuallyExpanded = false;
+        const preview = panel?.querySelector('[data-theme-display]');
+
+        if (panel && !panel.getAttribute('data-panel-state')) {
+            panel.setAttribute('data-panel-state', 'collapsed');
+        }
+
+        function handleOutsideClick(event) {
+            if (!panel || panel.contains(event.target)) {
+                return;
+            }
+            collapsePanel();
+        }
+
+        function collapsePanel() {
+            if (!panel) {
+                return;
+            }
+            panel.setAttribute('data-panel-state', 'collapsed');
+            if (isPanelManuallyExpanded) {
+                document.removeEventListener('pointerdown', handleOutsideClick);
+                isPanelManuallyExpanded = false;
+            }
+        }
+
+        function expandPanel(manual = false) {
+            if (!panel) {
+                return;
+            }
+            panel.setAttribute('data-panel-state', 'expanded');
+            if (manual && !isPanelManuallyExpanded) {
+                isPanelManuallyExpanded = true;
+                document.addEventListener('pointerdown', handleOutsideClick);
+            }
+        }
 
         const applyTheme = (theme) => {
             const option = THEME_OPTIONS.find(({ id }) => id === theme);
@@ -41,16 +76,63 @@
             root.dataset.theme = option.id;
             window.localStorage.setItem('uime-theme', option.id);
             panel?.setAttribute('data-current-theme', option.id);
+            preview?.setAttribute('data-theme-option', option.id);
             swatches.forEach((swatch) => {
                 const isActive = swatch.dataset.themeOption === option.id;
                 swatch.classList.toggle('is-selected', isActive);
                 swatch.setAttribute('aria-checked', String(isActive));
                 swatch.tabIndex = isActive ? 0 : -1;
             });
+            if (panel && isPanelManuallyExpanded && !panel.matches(':hover')) {
+                collapsePanel();
+            }
         };
 
         applyTheme(initialTheme);
         panel?.setAttribute('data-current-theme', initialTheme);
+
+        if (panel) {
+            panel.addEventListener('mouseenter', () => {
+                if (!isPanelManuallyExpanded) {
+                    expandPanel();
+                }
+            });
+
+            panel.addEventListener('mouseleave', () => {
+                if (isPanelManuallyExpanded || panel.matches(':focus-within')) {
+                    return;
+                }
+                collapsePanel();
+            });
+
+            panel.addEventListener('focusin', () => {
+                expandPanel();
+            });
+
+            panel.addEventListener('focusout', (event) => {
+                const nextTarget = event.relatedTarget;
+                if (nextTarget && panel.contains(nextTarget)) {
+                    return;
+                }
+                if (isPanelManuallyExpanded || panel.matches(':hover')) {
+                    return;
+                }
+                collapsePanel();
+            });
+
+            panel.addEventListener('click', (event) => {
+                if (panel.getAttribute('data-panel-state') !== 'collapsed') {
+                    return;
+                }
+                expandPanel(true);
+                const swatch = event.target.closest('[data-theme-option]');
+                if (swatch) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    swatch.focus();
+                }
+            }, true);
+        }
 
         swatches.forEach((swatch) => {
             const theme = swatch.dataset.themeOption;
