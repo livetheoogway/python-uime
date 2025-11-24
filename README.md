@@ -19,11 +19,11 @@ up, and suddenly your script feels like a real product instead of a one-off comm
 ## TL;DR
 
 **What you get:** In three lines you have a hosted UI where every argument becomes an input, responses render in rich JSON, and the whole thing still feels feather-light because it is plain HTML/CSS/JS (no React, no design system du jour).<br>
-<br>
+<br><br>
 **What you keep:** Your playful, slightly chaotic script-driven workflow. UI-Me just gives it buttons, dark mode, and a logo.<br>
-<br>
+<br><br>
 **What to look at first:** The [Motivation](#motivation) story is short and spicy, but if your build server is already screaming, here’s the gif version:<br>
-<br>
+<br><br>
 ![demo.gif](resources/demo.gif)
 
 ## Motivation
