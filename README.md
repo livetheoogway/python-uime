@@ -18,11 +18,15 @@ up, and suddenly your script feels like a real product instead of a one-off comm
 
 ## TL;DR
 
-**What you get:** In three lines you have a hosted UI where every argument becomes an input, responses render in rich JSON, and the whole thing still feels feather-light because it is plain HTML/CSS/JS (no React, no design system du jour).<br>
+**What you get:** In just three lines of code, all regular functions of your python code will be ready to use on a
+UI. Every argument of these functions becomes input forms and on using them, their responses get render in rich JSON.
+All this, while the whole thing still feels feather-light because it is plain HTML/CSS/JS (no React, no design system du jour).<br>
 <br><br>
-**What you keep:** Your playful, slightly chaotic script-driven workflow. UI-Me just gives it buttons, dark mode, and a logo.<br>
+**What you keep:** Your playful, slightly chaotic script-driven workflow. UI-Me just gives it buttons, dark mode, and a
+logo.<br>
 <br><br>
-**What to look at first:** The [Motivation](#motivation) story is short and spicy, but if your build server is already screaming, here’s the gif version:<br>
+**What to look at first:** The [Motivation](#motivation) story is short and spicy, but if your build server is already
+screaming, here’s the gif version of what to expect:<br>
 <br><br>
 ![demo.gif](resources/demo.gif)
 
@@ -104,7 +108,8 @@ def difference_math_function(a, b):
 
 if __name__ == '__main__':
     start_server()  ## <--- This is line 3 (As promised, within 3 lines of code)
-    start_server(port=5001, title="My Cool Title", description="I will struggle to describe this well")  # if you wish to customize ports or title
+    start_server(port=5001, title="My Cool Title",
+                 description="I will struggle to describe this well")  # if you wish to customize ports or title
 ```
 
 ![img.png](resources/ui-example.png)
@@ -195,14 +200,15 @@ The UI would look something like this
 > When inferring a list of anything from the text-area - extraction of the list from the large string, is done by using
 > delimiters.
 > By default, the priority of delimiters are NEWLINE, COMMA, SPACE
-> ie: NEWLINE is checked first, if available, the string will be split by newline and returned as a list. Then there is a
+> ie: NEWLINE is checked first, if available, the string will be split by newline and returned as a list. Then there is
+> a
 > check for COMMA, if available, the string will be split by comma and returned as a list. Finally SPACE.
 > In case of <list of list>, it is always a check on NEWLINE for the outer list, and COMMA/SPACE for the inner lists
-
 
 ### 3. Themes
 
 8 different themes to choose from, to make your UI look cool.
+
 1. Dark Tritanopia
 2. Soft Dark
 3. Dark Purple
@@ -214,7 +220,6 @@ The UI would look something like this
 
 ![theme_1.png](resources/theme_1.png)
 ![theme_2.png](resources/theme_2.png)
-
 
 ## Dependencies
 
