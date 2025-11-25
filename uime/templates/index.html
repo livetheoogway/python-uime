@@ -202,7 +202,7 @@
                                                 name="{{ param.name }}"
                                                 type="number"
                                                 class="text-input"
-                                                step="{{ '1' if param_type == 'int' else '0.01' }}"
+                                                step="{{ '1' if param_type == 'int' else 'any' }}"
                                                 {% if param.default is not none %}value="{{ param.default }}"{% endif %}
                                                 placeholder="Enter {{ param.name }}"
                                                 required
